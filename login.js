@@ -1,30 +1,32 @@
-const express = require('express');
-const router = express.Router();
-const mongoose = require('mongoose');
-const AccountModel = mongoose.model('Account')
 
-module.exports = () => {
-  router.post('/signup', new SignUpRouter().route)
-}
-
+// Sign-router
+const express = require('express')
+const router = express.Router()
 class SignUpRouter {
   async route (req, res) {
     const { email, password, repeatPassword } = req.body
+    new SignUpUseCase().signUp(email, password, repeatPassword)
+    res.status(400).json({
+      error: 'email, password and repeat must be exists'
+    })
+  }
+}
+// Sign-use-cases
+const mongoose = require('mongoose')
+const AccountModel = mongoose.model('Account')
+class SignUpUseCase {
+  async signUp (email, password, repeatPassword) {
     if (email && typeof email !== 'undefined' && password && typeof password !== 'undefined' && repeatPassword && typeof repeatPassword !== 'undefined') {
       if (password === repeatPassword) {
         const user = await AccountModel.create({
           email, password
         })
-        res.status(200).json(user)
-      } else {
-        res.status(400).json({
-          error: 'password and repeatPassword must be equal'
-        })
+        return user
       }
-    } else {
-      res.status(400).json({
-        error: 'email, password and repeat must be exists'
-      })
     }
   }
+}
+
+module.exports = () => {
+  router.post('/signup', new SignUpRouter().route)
 }
