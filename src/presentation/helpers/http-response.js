@@ -6,6 +6,7 @@ module.exports = class HttpResponse {
       body: new MissingParamError(paramName)
     }
   }
+
   static serverError () {
     return {
       statusCode: 500

@@ -1,6 +1,6 @@
-const HttpResponse = require('.././helpers/http-response');
+const HttpResponse = require('.././helpers/http-response')
 module.exports = class LoginRouter {
-  route(httpRequest) {
+  route (httpRequest) {
     if (!httpRequest || !httpRequest.body) {
       return HttpResponse.serverError()
     }
@@ -16,4 +16,3 @@ module.exports = class LoginRouter {
     }
   }
 }
-
