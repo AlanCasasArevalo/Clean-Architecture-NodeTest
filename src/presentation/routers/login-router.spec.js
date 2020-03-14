@@ -1,11 +1,6 @@
 class LoginRouter {
   route(httpRequest) {
-    if (!httpRequest) {
-      return {
-        statusCode: 500
-      }
-    }
-    if (!httpRequest.body) {
+    if (!httpRequest || !httpRequest.body) {
       return {
         statusCode: 500
       }
