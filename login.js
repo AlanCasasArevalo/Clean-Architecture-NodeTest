@@ -1,17 +1,22 @@
 // Sign-router
-const express = require('express')
-const router = express.Router()
-
 class SignUpRouter {
-  async route (req, res) {
-    const { email, password, repeatPassword } = req.body
+  async route (httpRequest) {
+    const { email, password, repeatPassword } = httpRequest.body
     if (email && typeof email !== 'undefined' && password && typeof password !== 'undefined' && repeatPassword && typeof repeatPassword !== 'undefined') {
-      new SignUpUseCase().signUp(email, password, repeatPassword)
+      const user = new SignUpUseCase().signUp(email, password, repeatPassword)
+      return {
+        statusCode: 200,
+        body: user
+      }
     } else {
-      res.status(400).json({
-        error: 'email, password and repeat must be exists'
-      })
+      return {
+        statusCode: 400,
+        body: {
+          error: 'Email, password, repeatPassword can not be empty'
+        }
+      }
     }
+
   }
 }
 
@@ -33,6 +38,28 @@ class AddAccountRepository {
   }
 }
 
+const express = require('express')
+const router = express.Router()
 module.exports = () => {
   router.post('/signup', new SignUpRouter().route)
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
