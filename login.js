@@ -1,3 +1,4 @@
+//Presentation
 // Sign-router
 class SignUpRouter {
   async route (httpRequest) {
@@ -16,10 +17,10 @@ class SignUpRouter {
         }
       }
     }
-
   }
 }
 
+// Domain
 // Sign-use-cases
 class SignUpUseCase {
   async signUp (email, password, repeatPassword) {
@@ -29,6 +30,7 @@ class SignUpUseCase {
   }
 }
 
+// Infra Structure
 const mongoose = require('mongoose')
 const AccountModel = mongoose.model('Account')
 class AddAccountRepository {
