@@ -319,3 +319,4 @@ modules.xml
 
 
 # End of https://www.gitignore.io/api/node,webstorm,monodevelop,webstorm+all,webstorm+iml,nodechakratimetraveldebug
+*.xml
