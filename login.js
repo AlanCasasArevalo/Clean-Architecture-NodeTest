@@ -38,10 +38,23 @@ class AddAccountRepository {
   }
 }
 
+class ExpressRouterAdapter {
+  static adapter (router) {
+    return async (req, res) => {
+      const httpRequest = {
+        body: req.body
+      }
+      const httpResponse = await router.route(httpRequest)
+      res.status(httpResponse.statusCode).json(httpResponse.body)
+    }
+  }
+}
+
 const express = require('express')
 const router = express.Router()
 module.exports = () => {
-  router.post('/signup', new SignUpRouter().route)
+  const router = new SignUpRouter()
+  router.post('/signup', new ExpressRouterAdapter.adapter(router))
 }
 
 
