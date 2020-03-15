@@ -21,7 +21,7 @@ const makeSut = () => {
 
 describe('Login Router', () => {
   test('Should return 200 when valid credentials are provider', () => {
-    const { sut, authUseCaseSpy } = makeSut()
+    const { sut } = makeSut()
     const httpRequest = {
       body: {
         email: 'valid_email@cualquiercosa.com',

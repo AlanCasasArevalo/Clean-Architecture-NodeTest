@@ -16,9 +16,7 @@ module.exports = class LoginRouter {
     } else {
       const accessToken = this.authUseCase.auth(email, password)
       if (accessToken && typeof accessToken !== 'undefined') {
-        return {
-          statusCode: 200
-        }
+        return HttpResponse.success()
       } else {
         return HttpResponse.unAuthorizedError()
       }
