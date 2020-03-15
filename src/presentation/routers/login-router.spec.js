@@ -11,6 +11,7 @@ const makeSut = () => {
     }
   }
   const authUseCaseSpy = new AuthUseCaseSpy()
+  authUseCaseSpy.accessToken = 'valid_token'
   const sut = new LoginRouter(authUseCaseSpy)
   return {
     authUseCaseSpy,
@@ -19,10 +20,8 @@ const makeSut = () => {
 }
 
 describe('Login Router', () => {
-
   test('Should return 200 when valid credentials are provider', () => {
     const { sut, authUseCaseSpy } = makeSut()
-    authUseCaseSpy.accessToken = 'valid_token'
     const httpRequest = {
       body: {
         email: 'valid_email@cualquiercosa.com',
@@ -123,5 +122,4 @@ describe('Login Router', () => {
     expect(authUseCaseSpy.email).toBe(httpRequest.body.email)
     expect(authUseCaseSpy.password).toBe(httpRequest.body.password)
   })
-
 })
