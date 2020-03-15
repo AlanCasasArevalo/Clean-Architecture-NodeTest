@@ -3,8 +3,9 @@ const MissingParamError = require('../helpers/missing-param-error')
 
 const makeSut = () => {
   class AuthUseCase {
-    auth(email) {
+    auth(email, password) {
       this.email = email
+      this.password = password
     }
   }
   const authUseCase = new AuthUseCase()
