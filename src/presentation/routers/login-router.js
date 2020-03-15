@@ -1,6 +1,5 @@
 const HttpResponse = require('.././helpers/http-response')
 module.exports = class LoginRouter {
-
   constructor (authUseCase) {
     this.authUseCase = authUseCase
   }
