@@ -14,8 +14,14 @@ module.exports = class LoginRouter {
     } else if (!password) {
       return HttpResponse.badRequest('password')
     } else {
-      this.authUseCase.auth(email, password)
-      return HttpResponse.unAuthorizedError()
+      const accessToken = this.authUseCase.auth(email, password)
+      if (accessToken && typeof accessToken !== 'undefined') {
+        return {
+          statusCode: 200
+        }
+      } else {
+        return HttpResponse.unAuthorizedError()
+      }
     }
   }
 }
