@@ -15,9 +15,7 @@ module.exports = class LoginRouter {
       return HttpResponse.badRequest('password')
     } else {
       this.authUseCase.auth(email, password)
-      return {
-        statusCode: 401
-      }
+      return HttpResponse.unAuthorizedError()
     }
   }
 }
