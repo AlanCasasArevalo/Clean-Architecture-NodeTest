@@ -95,7 +95,9 @@ describe('Login Router', () => {
   })
 
   test('Should return 500 if no AuthUseCase has no auth method', () => {
-    const sut = new LoginRouter()
+    class AuthUseCaseSpyWithoutAuth {}
+    const authWithoutAuthSpy = new AuthUseCaseSpyWithoutAuth()
+    const sut = new LoginRouter(authWithoutAuthSpy)
     const httpRequest = {
       body: {
         email: 'any_email@cualquiercosa.com',
