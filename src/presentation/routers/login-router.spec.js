@@ -49,6 +49,15 @@ const makeAuthUseCaseWithError = () => {
   return new AuthUseCaseSpy()
 }
 
+const makeEmailValidatorWithError = () => {
+  class EmailValidatorSpy {
+    isValid () {
+      throw new Error()
+    }
+  }
+  return new EmailValidatorSpy()
+}
+
 describe('Login Router', () => {
   test('Should return 200 when valid credentials are provider', async () => {
     const { sut, authUseCaseSpy } = makeSut()
