@@ -22,7 +22,9 @@ const makeEmailValidator = () => {
     }
   }
 
-  return new EmailValidatorSpy();
+  const emailValidatorSpy = new EmailValidatorSpy()
+  emailValidatorSpy.isEmailValid = true
+  return emailValidatorSpy
 }
 
 const makeAuthUseCase = () => {
@@ -33,7 +35,9 @@ const makeAuthUseCase = () => {
       return this.accessToken
     }
   }
-  return new AuthUseCaseSpy()
+  const authUseCaseSpy = new AuthUseCaseSpy()
+  authUseCaseSpy.accessToken = 'valid_token'
+  return authUseCaseSpy
 }
 const makeAuthUseCaseWithError = () => {
   class AuthUseCaseSpy {
@@ -72,8 +76,9 @@ describe('Login Router', () => {
   })
 
   test('should return 400 if email is not valid', async () => {
-    const { sut } = makeSut()
+    const { sut, emailValidatorSpy } = makeSut()
 
+    emailValidatorSpy.isEmailValid = false
     const httpRequest = {
       body: {
         email: 'invalid_email@cualquiercosa.com',
