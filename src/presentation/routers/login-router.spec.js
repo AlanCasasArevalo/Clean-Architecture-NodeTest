@@ -39,6 +39,7 @@ const makeAuthUseCase = () => {
   authUseCaseSpy.accessToken = 'valid_token'
   return authUseCaseSpy
 }
+
 const makeAuthUseCaseWithError = () => {
   class AuthUseCaseSpy {
     async auth () {
@@ -133,6 +134,20 @@ describe('Login Router', () => {
 
   test('Should return 500 if no AuthUseCase is provided', async () => {
     const sut = new LoginRouter()
+    const httpRequest = {
+      body: {
+        email: 'any_email@cualquiercosa.com',
+        password: 'any_password'
+      }
+    }
+    const httpResponse = await sut.route(httpRequest)
+    expect(httpResponse.statusCode).toBe(500)
+    expect(httpResponse.body).toEqual(new ServerError())
+  })
+
+  test('Should return 500 if no EmailValidator is provided', async () => {
+    const authUseCaseSpy = makeAuthUseCase()
+    const sut = new LoginRouter(authUseCaseSpy)
     const httpRequest = {
       body: {
         email: 'any_email@cualquiercosa.com',
