@@ -1,4 +1,4 @@
-//Presentation
+// Presentation
 // Sign-router
 class SignUpRouter {
   async route (httpRequest) {
@@ -41,7 +41,7 @@ class AddAccountRepository {
 }
 
 class ExpressRouterAdapter {
-  static adapter (router) {
+  static Adapter (router) {
     return async (req, res) => {
       const httpRequest = {
         body: req.body
@@ -52,29 +52,7 @@ class ExpressRouterAdapter {
   }
 }
 
-const express = require('express')
-const router = express.Router()
 module.exports = () => {
   const router = new SignUpRouter()
-  router.post('/signup', new ExpressRouterAdapter.adapter(router))
+  router.post('/signup', new ExpressRouterAdapter.Adapter(router))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
