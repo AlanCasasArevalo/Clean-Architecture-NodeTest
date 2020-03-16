@@ -197,6 +197,18 @@ describe('Login Router', () => {
     expect(httpResponse.body).toEqual(new ServerError())
   })
 
+  test('Should call EmailValidator with correct email', async () => {
+    const { sut, emailValidatorSpy } = makeSut()
+    const httpRequest = {
+      body: {
+        email: 'cualquiercosa@cualquiercosa.com',
+        password: 'cualquiercosa'
+      }
+    }
+    await sut.route(httpRequest)
+    expect(emailValidatorSpy.email).toBe(httpRequest.body.email)
+  })
+
   test('Should return 500 if no AuthUseCase has no auth method', async () => {
     class AuthUseCaseSpyWithoutAuth {}
     const authWithoutAuthSpy = new AuthUseCaseSpyWithoutAuth()
