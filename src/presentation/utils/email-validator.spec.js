@@ -1,6 +1,7 @@
+const validator = require('validator')
 class EmailValidator {
   isValid (email) {
-    return true
+    return validator.isEmail(email)
   }
 }
 describe('Email Validator', () => {
